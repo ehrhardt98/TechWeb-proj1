@@ -4,7 +4,7 @@
 
 20/9/2017 às 7h30 será a arguição. Em ambiente de produção. Nada local. Entrega pelo git até 23h59 do dia 19/9/2017
 
-###CRITÉRIO DE CONCEITO
+### CRITÉRIO DE CONCEITO
 
 - A+ -> opção de filtros e “busca”
 - A -> login, post de mais de um tipo de formato, ordenação por última edição.
