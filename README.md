@@ -1,6 +1,8 @@
 # TechWeb Projeto 1
 ## Jorge Ehrhardt e Vitor Liu
 
+Construção de um sistema de anotações e mini-posts para uso dentro de uma matéria de Tecnologias Web. 
+
 ### DATA DA ENTREGA
 
 20/9/2017 às 7h30 será a arguição. Em ambiente de produção. Nada local.
