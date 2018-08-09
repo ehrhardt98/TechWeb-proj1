@@ -1,4 +1,5 @@
-# TechWeb-proj1
+# TechWeb Projeto 1
+## Jorge Ehrhardt e Vitor Liu
 
 ### DATA DA ENTREGA
 
