@@ -1,0 +1,130 @@
+html {
+    height: 100%;
+}
+
+body {
+	margin: 0;
+    background-color: #b9b9b9;
+    height: 100%;
+}
+
+.nav-bar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 6vw;
+    max-height: 60px;
+    min-height: 48px;
+    width: 100%;
+    background-color: #505050;
+}
+
+.logo {
+    float: left;
+    background-color: #505050;
+    display: block;
+    color: white;
+    text-align: center;
+    height: 100%;
+    text-decoration: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 0px 1vw;
+}
+
+.title{
+    float: left;
+    background-color: #505050;
+    display: block;
+    color: white;
+    text-align: center;
+    height: 100%;
+    text-decoration: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 0px 1vw;
+
+}
+
+.search {
+    float: center;
+    background-color: #505050;
+    display: block;
+    color: white;
+    text-align: center;
+    height: 100%;
+    text-decoration: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 0px 2vw;
+}
+
+
+.menu-button {
+    float: right;
+    background-color: #505050;
+    display: block;
+    color: white;
+    text-align: center;
+    height: 100%;
+    text-decoration: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 0px 1.5vw;
+}
+
+.menu-button:hover {
+    background-color: #5a5a5a;
+}
+
+.canvas {
+    height: 100%;
+}
+
+.create-note-div {
+    float: center;
+    display: block;
+    color: white;
+    text-align: center;
+    height: 10%;
+    width: 100%;
+    text-decoration: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding-top: 1em;
+}
+
+.create-note-form {
+    float: center;
+    display: block;
+    color: white;
+    text-align: center;
+    height: 100%;
+    min-height: 30px;
+    width: 100%;
+    text-decoration: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.menu {
+    display: none;
+    margin: 0;
+    background-color: #808080;
+    max-height: 60px;
+    min-height: 48px;
+    width: 100%;
+}
