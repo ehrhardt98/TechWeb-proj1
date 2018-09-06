@@ -1,0 +1,20 @@
+----------------------------------
+	Script de criação
+----------------------------------
+
+- CREATE DATABASE nome_database ; -> Cria uma nova base de dados
+- USE nome_database ; -> Seleciona a base de dados que será utilizada para as modificações seguintes
+- CREATE TABLE nome_tabela () -> Cria uma nova coluna na database selecionada
+
+---------------------
+Descrições de colunas
+---------------------
+
+- INT -> Define que a coluna aceita inputs do tipo inteiro (com até 11 caracteres)
+- VARCHAR(32) -> Define que a coluna aceita inputs do tipo string (com até 32 caracteres)
+- CHAR(7) -> Define que a coluna aceita inputs de uma string imutável (com até 7 caracteres)
+- TIMESTAMP -> Define que a coluna aceita inputs de data seguindo o padrão yyyy-mm-dd
+- NOT NULL -> Define que a coluna exige algum dado, ou seja, não pode receber um input vazio
+- AUTO_INCREMENT -> Define que o próximo input dessa coluna irá ser incrementado automaticamente
+- REFERENCES nome_tabela(nome_coluna) -> Referencia que essa coluna receberá aquilo que está em outra tabela
+- PRIMARY KEY (nome_coluna) -> Define a coluna com um id único e não nulo
