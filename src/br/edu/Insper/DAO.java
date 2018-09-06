@@ -34,7 +34,7 @@ public class DAO {
 	}
 	
 	public void adicionaUsuario(Usuario usuario) {
-		String sql = "INSERT INTO usuarios" + 
+		String sql = "INSERT INTO usuarios " + 
 				"(nome,email,senha) values(?,?,?)";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -49,7 +49,7 @@ public class DAO {
 	}
 	
 	public void alteraUsuario(Usuario usuario) {
-		String sql = "UPDATE usuarios SET" + 
+		String sql = "UPDATE usuarios SET " + 
 				"nome=?, email=?, senha=? WHERE id_usuario=?";
 		PreparedStatement stmt;
 		try {
@@ -77,7 +77,7 @@ public class DAO {
 	}
 	
 	public void adicionaMural(Mural mural) {
-		String sql = "INSERT INTO murais" + 
+		String sql = "INSERT INTO murais " + 
 				"(data_criacao, ultima_mod, id_usuario) values(?,?,?)";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -92,7 +92,7 @@ public class DAO {
 	}
 	
 	public void alteraMural(Mural mural) {
-		String sql = "UPDATE murais SET" + 
+		String sql = "UPDATE murais SET " + 
 				"nome=?, ultima_mod=?, estilo=? WHERE id_mural=?";
 		PreparedStatement stmt;
 		try {
@@ -109,7 +109,7 @@ public class DAO {
 	}
 	
 	public void alteraDataMural(Mural mural) {
-		String sql = "UPDATE murais SET" + 
+		String sql = "UPDATE murais SET " + 
 				"ultima_mod=? WHERE id_mural=?";
 		PreparedStatement stmt;
 		try {
@@ -135,7 +135,7 @@ public class DAO {
 	}
 	
 	public void adicionaNota(Nota nota) {
-		String sql = "INSERT INTO notas" + 
+		String sql = "INSERT INTO notas " + 
 				"(tipo, conteudo, cor, tamanho_x, tamanho_y, id_mural) values(?,?,?,?,?,?)";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -153,7 +153,7 @@ public class DAO {
 	}
 	
 	public void alteraNota(Nota nota) {
-		String sql = "UPDATE notas SET" + 
+		String sql = "UPDATE notas SET " + 
 				"tipo=?, conteudo=?, cor=?, tamanho_x=?, tamanho_y=?, id_mural=? WHERE id_nota=?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
@@ -171,25 +171,25 @@ public class DAO {
 		}
 	}
 	
-	public List<Nota> getListaNotas(Mural mural) {
-		List<Nota> notas = new ArrayList<Nota>();
+	public ArrayList<Nota> getListaNotas(int id_mural) {
+		ArrayList<Nota> notas = new ArrayList<Nota>();
 
 		PreparedStatement stmt;
-		String sql = "SELECT * FROM notas WHERE" + "id_mural=?";
+		String sql = "SELECT * FROM notas WHERE " + "id_mural=?";
 		try {
 			stmt = connection.prepareStatement(sql);
-			stmt.setInt(1, mural.getId());
+			stmt.setInt(1, id_mural);
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				Nota nota = new Nota();
-				nota.setId(rs.getInt("id"));
+				nota.setId(rs.getInt("id_nota"));
 				nota.setTipo(rs.getString("tipo"));
 				nota.setConteudo(rs.getString("conteudo"));
 				nota.setCor(rs.getString("cor"));
-				nota.setTamanhoX(rs.getFloat("tamanhoX"));
-				nota.setTamanhoY(rs.getFloat("tamanhoY"));
-				nota.setIdMural(rs.getInt("idMural"));
+				nota.setTamanhoX(rs.getFloat("tamanho_x"));
+				nota.setTamanhoY(rs.getFloat("tamanho_y"));
+				nota.setIdMural(rs.getInt("id_mural"));
 				notas.add(nota);
 			}
 			rs.close();

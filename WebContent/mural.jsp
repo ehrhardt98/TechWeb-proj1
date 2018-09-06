@@ -18,7 +18,7 @@
 
 
 	<body>
-		<jsp:useBean id="dao" class="br.edu.Insper.DAO"/>
+		<%-- <jsp:useBean id="dao" class="br.edu.Insper.DAO"/> --%>
 		<div class="nav-bar">
 			<div class="title">
 				<h2>Nome do mural</h2>
@@ -64,6 +64,54 @@
 				</form>
 			</div>
 			
+			<% DAO dao = new DAO();
+				ArrayList<Nota> notas = dao.getListaNotas(1);
+				for (Nota nota : notas ) { %>
+				<table style="display: inline;
+			    margin: 0px 8px;
+			    width: auto;
+			    height: auto;
+			    min-width: 100px;
+			    min-height: 100px;">
+			    
+					<tr style="display: block;
+				    background-color: #cccc00;
+				    width: auto;
+				    height: auto;
+				    word-break: break-word;">
+						<td class="top-nota-cell">
+							<%=nota.getId() %>
+						</td>
+					</tr>
+					
+					<tr style="display: block;
+				    background-color: #ffff99;
+				    width: auto;
+				    height: auto;
+				    word-break: break-word; ">
+						<td class="bot-nota-cell">
+							<%=nota.getConteudo() %>
+						</td>
+					</tr>
+					
+				</table>
+			<% } %>
+
+<%-- 			<c:forEach var="nota" items="${dao.getListaNotas}" varStatus="id_nota">
+				<table class="nota">
+					<tr class="top-nota">
+						<td class="top-nota-cell">
+							${id_nota.count}
+						</td>
+					</tr>
+					<tr class="bot-nota">
+						<td class="bot-nota-cell">
+							${nota.conteudo}
+						</td>
+					</tr>
+				</table>
+			</c:forEach> --%>
+
 			
 		</div>
 

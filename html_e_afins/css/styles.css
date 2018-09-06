@@ -130,12 +130,11 @@ body {
 }
 
 .nota {
-    display: inline;
+    display: inline-block;
     margin: 0px 8px;
     width: auto;
     height: auto;
-    min-width: 100px;
-    min-height: 100px;
+    max-width: 600px;
 }
 
 .top-nota {
@@ -143,7 +142,7 @@ body {
     background-color: #cccc00;
     width: auto;
     height: auto;
-    word-break: break-word; 
+    word-break: break-word;
 }
 
 .bot-nota {
@@ -151,5 +150,5 @@ body {
     background-color: #ffff99;
     width: auto;
     height: auto;
-    word-break: break-word; 
+    word-break: break-word;
 }
