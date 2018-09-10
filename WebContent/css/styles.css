@@ -130,20 +130,45 @@ body {
 }
 
 .nota {
-    display: inline;
+    display: inline-block;
     margin: 0px 8px;
     width: auto;
     height: auto;
-    min-width: 100px;
-    min-height: 100px;
+    max-width: 600px;
+
 }
 
 .top-nota {
     display: block;
     background-color: #cccc00;
+    margin: auto;
     width: auto;
     height: auto;
-    word-break: break-word; 
+    word-break: break-word;
+}
+
+.titulo {
+    display: inline-block;
+    max-width: 90%;
+    height: 100%;
+    word-break: break-word;
+}
+
+.delete {
+    display: inline-block;
+    float: right;
+    width: auto;
+    word-break: break-word;
+    vertical-align: middle;
+    margin: auto;
+}
+
+.delete-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    height: 20px;
 }
 
 .bot-nota {
@@ -151,5 +176,5 @@ body {
     background-color: #ffff99;
     width: auto;
     height: auto;
-    word-break: break-word; 
+    word-break: break-word;
 }

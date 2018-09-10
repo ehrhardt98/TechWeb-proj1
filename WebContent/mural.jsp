@@ -79,9 +79,36 @@
 				    width: auto;
 				    height: auto;
 				    word-break: break-word;">
-						<td class="top-nota-cell">
+						<td name="id" style="display: inline-block;
+					    max-width: 90%;
+					    height: 100%;
+					    word-break: break-word;">
 							<%=nota.getId() %>
 						</td>
+						<td style="display: inline-block;
+					    float: right;
+					    width: auto;
+					    word-break: break-word;
+					    vertical-align: middle;
+					    margin: auto;
+					    height: 20px;
+					    padding: 0px">
+						<form action="DeletaNota">
+							<button type="submit" name="idnota" value="<%=nota.getId() %>" style="display: block;
+						    width: 20px;
+						    height: 20px;
+						    background-position: 0px 0px;
+						    border: 0px;
+						    padding: 1px;
+						    cursor: pointer;
+						    background-color: #cccc00;">
+						    	<img src="img/oba.png" title="Apagar nota" style="display: block;
+						    	height: 18px;						    	
+							    margin-left: auto;
+							    margin-right: auto;">
+						    </button>
+						</form>
+					</td>
 					</tr>
 					
 					<tr style="display: block;

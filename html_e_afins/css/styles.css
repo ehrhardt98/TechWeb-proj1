@@ -135,14 +135,40 @@ body {
     width: auto;
     height: auto;
     max-width: 600px;
+
 }
 
 .top-nota {
     display: block;
     background-color: #cccc00;
+    margin: auto;
     width: auto;
     height: auto;
     word-break: break-word;
+}
+
+.titulo {
+    display: inline-block;
+    max-width: 90%;
+    height: 100%;
+    word-break: break-word;
+}
+
+.delete {
+    display: inline-block;
+    float: right;
+    width: auto;
+    word-break: break-word;
+    vertical-align: middle;
+    margin: auto;
+}
+
+.delete-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    height: 20px;
 }
 
 .bot-nota {
