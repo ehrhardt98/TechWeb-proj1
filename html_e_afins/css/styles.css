@@ -8,6 +8,48 @@ body {
     height: 100%;
 }
 
+.login-table {
+    width: 100%;
+    height: 100%;
+}
+
+.login-col-l {
+    height: 100%;
+    width: 50%;
+    padding: 10% 5%; 
+    border-right: 2px dotted #5d5d5d;
+}
+
+.login-box {
+    background-color: #505050;
+    padding: 4%;
+    border: 2px solid;
+    border-color: #a0a0a0;
+    border-radius: 5px;
+    color: white;
+}
+
+.login-col-r {
+    height: 100%;
+    width: 50%;
+    padding: 10% 5%; 
+}
+
+.login-titulo {
+    font-weight: bold;
+    font-size: 150%;
+    margin-bottom: 8%;
+}
+
+
+.info-text {
+    margin-bottom: 2%;
+}
+
+.botao {
+    margin-top: 5%;
+}
+
 .nav-bar {
     list-style-type: none;
     margin: 0;
