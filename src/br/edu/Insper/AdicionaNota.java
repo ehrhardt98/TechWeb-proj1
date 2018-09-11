@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Adicionar
+ * Servlet implementation class AdicionaNota
  */
-@WebServlet("/Adicionar")
+@WebServlet("/AdicionaNota")
 public class AdicionaNota extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -42,23 +42,32 @@ public class AdicionaNota extends HttpServlet {
 			nota.setTipo("texto");
 			nota.setConteudo(request.getParameter("create-note"));
 			nota.setCor("#999999");
-			nota.setTamanhoX(null);
-			nota.setTamanhoY(null);
+			nota.setTamanhoX(0);
+			nota.setTamanhoY(0);
 			nota.setIdMural(1);
+			
+			System.out.println(nota.getConteudo());
+			PrintWriter out  = response.getWriter();
+			out.println("<html>");
+	    	out.println("<h1> Parabainz </h1>");
+	    	out.println("<body>");
+	    	out.println("</body>");
+			out.println("</html>");
 
 			dao.adicionaNota(nota);
 			
 			dao.close();
 			
-			PrintWriter out  = response.getWriter();
-			out.println("<html>");
-	    	out.println("<h1> Parabainz vc escolheu um </h1>");
-	    	out.println("<body>");
 		}
 		catch (Exception e) {
 			// TODO: handle exception
 		}
 		
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

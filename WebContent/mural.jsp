@@ -50,7 +50,7 @@
 
 		<div class="canvas">
 			<div class="create-note-div">
-				<form class="create-note-form">
+				<form class="create-note-form" action="AdicionaNota">
 					<input type="text" name="create-note" placeholder="Crie uma nota" style="display: block;
 	   				border-style: solid;
 				    border-width: 2px;

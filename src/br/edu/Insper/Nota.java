@@ -6,8 +6,8 @@ public class Nota {
 	private String tipo;
 	private String conteudo;
 	private String cor;
-	private Float tamanhoX;
-	private Float tamanhoY;
+	private Integer tamanhoX;
+	private Integer tamanhoY;
 	private Integer idMural;
 	
 	public void setId(Integer id) {
@@ -26,11 +26,11 @@ public class Nota {
 		this.cor = cor;
 	}
 	
-	public void setTamanhoX(Float tamanhoX) {
+	public void setTamanhoX(Integer tamanhoX) {
 		this.tamanhoX = tamanhoX;
 	}
 	
-	public void setTamanhoY(Float tamanhoY) {
+	public void setTamanhoY(Integer tamanhoY) {
 		this.tamanhoY = tamanhoY;
 	}
 	
@@ -54,11 +54,11 @@ public class Nota {
 		return cor;
 	}
 	
-	public Float getTamanhoX() {
+	public Integer getTamanhoX() {
 		return tamanhoX;
 	}
 	
-	public Float getTamanhoY() {
+	public Integer getTamanhoY() {
 		return tamanhoY;
 	}
 	

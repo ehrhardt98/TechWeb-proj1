@@ -16,7 +16,7 @@ public class DAO {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection(
-					"jdbc:mysql://localhost/projeto1", "root", "02039855oioioi9");
+					"jdbc:mysql://localhost/projeto1", "root", "senhamysql");
 			
 		} catch (ClassNotFoundException | SQLException e) {
 			
@@ -136,16 +136,25 @@ public class DAO {
 	
 	public void adicionaNota(Nota nota) {
 		String sql = "INSERT INTO notas " + 
-				"(tipo, conteudo, cor, tamanho_x, tamanho_y, id_mural) values(?,?,?,?,?,?)";
+				"(tipo, conteudo, cor, tamanho_x, tamanho_y, id_mural) VALUES (?,?,?,?,?,?)";
+
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
+
 			stmt.setString(1, nota.getTipo());
 			stmt.setString(2, nota.getConteudo());
 			stmt.setString(3, nota.getCor());
-			stmt.setFloat(4, nota.getTamanhoX());
-			stmt.setFloat(5, nota.getTamanhoY());
+			System.out.println("aaaaaaaaaaaaaaaaaaaaaabbbb");
+			stmt.setInt(4, nota.getTamanhoX());
+			System.out.println("aaaaaaaaaaaaaaaaaaaaaacccc");
+			stmt.setInt(5, nota.getTamanhoY());
+			System.out.println("aaaaaaaaaaaaaaaaaaaaaadddd");
 			stmt.setInt(6, nota.getIdMural());
+			System.out.println("aaaaaaaaaaaaaaaaaaaaaaeeee");
 			stmt.execute();
+
+			
+			System.out.println(stmt.toString());
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -160,8 +169,8 @@ public class DAO {
 			stmt.setString(1, nota.getTipo());
 			stmt.setString(2, nota.getConteudo());
 			stmt.setString(3, nota.getCor());
-			stmt.setFloat(4, nota.getTamanhoX());
-			stmt.setFloat(5, nota.getTamanhoY());
+			stmt.setInt(4, nota.getTamanhoX());
+			stmt.setInt(5, nota.getTamanhoY());
 			stmt.setInt(6, nota.getIdMural());
 			stmt.setInt(7, nota.getId());
 			stmt.execute();
@@ -187,8 +196,8 @@ public class DAO {
 				nota.setTipo(rs.getString("tipo"));
 				nota.setConteudo(rs.getString("conteudo"));
 				nota.setCor(rs.getString("cor"));
-				nota.setTamanhoX(rs.getFloat("tamanho_x"));
-				nota.setTamanhoY(rs.getFloat("tamanho_y"));
+				nota.setTamanhoX(rs.getInt("tamanho_x"));
+				nota.setTamanhoY(rs.getInt("tamanho_y"));
 				nota.setIdMural(rs.getInt("id_mural"));
 				notas.add(nota);
 			}
