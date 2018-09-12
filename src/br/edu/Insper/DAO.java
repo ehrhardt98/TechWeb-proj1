@@ -16,7 +16,7 @@ public class DAO {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection(
-					"jdbc:mysql://localhost/projeto1", "root", "senhamysql");
+					"jdbc:mysql://localhost/projeto1", "root", "02039855oioioi9");
 			
 		} catch (ClassNotFoundException | SQLException e) {
 			
@@ -74,6 +74,31 @@ public class DAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<Usuario> getListaUsuarios() {
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
+		PreparedStatement stmt;
+		String sql = "SELECT * FROM usuarios";
+		try {
+			stmt = connection.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Usuario usuario = new Usuario();
+				usuario.setId(rs.getInt("id_usuario"));
+				usuario.setNome(rs.getString("nome"));
+				usuario.setEmail(rs.getString("email"));
+				usuario.setSenha(rs.getString("senha"));
+				usuarios.add(usuario);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return usuarios;
 	}
 	
 	public void adicionaMural(Mural mural) {

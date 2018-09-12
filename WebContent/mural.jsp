@@ -45,7 +45,8 @@
 		</div>
 
 		<div class="menu">
-			<p>ob</p>
+			<a href="home.jsp" class="menu-item">Meus murais</a>
+			<a href="inicio.jsp" class="menu-item">Logout</a>
 		</div>
 	<br/>
 		<div class="canvas">
