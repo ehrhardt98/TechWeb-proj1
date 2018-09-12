@@ -136,25 +136,16 @@ public class DAO {
 	
 	public void adicionaNota(Nota nota) {
 		String sql = "INSERT INTO notas " + 
-				"(tipo, conteudo, cor, tamanho_x, tamanho_y, id_mural) VALUES (?,?,?,?,?,?)";
+				"(tipo, conteudo, id_mural) VALUES (?,?,?)";
 
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
 			stmt.setString(1, nota.getTipo());
 			stmt.setString(2, nota.getConteudo());
-			stmt.setString(3, nota.getCor());
-			System.out.println("aaaaaaaaaaaaaaaaaaaaaabbbb");
-			stmt.setInt(4, nota.getTamanhoX());
-			System.out.println("aaaaaaaaaaaaaaaaaaaaaacccc");
-			stmt.setInt(5, nota.getTamanhoY());
-			System.out.println("aaaaaaaaaaaaaaaaaaaaaadddd");
-			stmt.setInt(6, nota.getIdMural());
-			System.out.println("aaaaaaaaaaaaaaaaaaaaaaeeee");
-			stmt.execute();
-
+			stmt.setInt(3, nota.getIdMural());
 			
-			System.out.println(stmt.toString());
+			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -163,18 +154,18 @@ public class DAO {
 	
 	public void alteraNota(Nota nota) {
 		String sql = "UPDATE notas SET " + 
-				"tipo=?, conteudo=?, cor=?, tamanho_x=?, tamanho_y=?, id_mural=? WHERE id_nota=?";
+				"tipo=?, conteudo=? WHERE id_nota=?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
+			System.out.println("aaaaaaaaaaaaaaaaaaaaaaa");
+			System.out.println(nota.getId());
 			stmt.setString(1, nota.getTipo());
 			stmt.setString(2, nota.getConteudo());
-			stmt.setString(3, nota.getCor());
-			stmt.setInt(4, nota.getTamanhoX());
-			stmt.setInt(5, nota.getTamanhoY());
-			stmt.setInt(6, nota.getIdMural());
-			stmt.setInt(7, nota.getId());
+			stmt.setInt(3, nota.getId());
+			
 			stmt.execute();
 			stmt.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -195,9 +186,6 @@ public class DAO {
 				nota.setId(rs.getInt("id_nota"));
 				nota.setTipo(rs.getString("tipo"));
 				nota.setConteudo(rs.getString("conteudo"));
-				nota.setCor(rs.getString("cor"));
-				nota.setTamanhoX(rs.getInt("tamanho_x"));
-				nota.setTamanhoY(rs.getInt("tamanho_y"));
 				nota.setIdMural(rs.getInt("id_mural"));
 				notas.add(nota);
 			}

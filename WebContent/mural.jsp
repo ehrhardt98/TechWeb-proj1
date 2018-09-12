@@ -47,7 +47,7 @@
 		<div class="menu">
 			<p>ob</p>
 		</div>
-
+	<br/>
 		<div class="canvas">
 			<div class="create-note-div">
 				<form class="create-note-form" action="AdicionaNota">
@@ -115,9 +115,15 @@
 				    background-color: #ffff99;
 				    width: auto;
 				    height: auto;
-				    word-break: break-word; ">
+				    word-break: break-word;">
 						<td class="bot-nota-cell">
-							<%=nota.getConteudo() %>
+						<form action="AlteraNota" id="altera-nota">
+							<input type="hidden" name="id-nota" value="<%=nota.getId() %>">
+							<input type="hidden" name="tipo-nota" value="<%=nota.getTipo() %>">
+							<input type="text" name="edit-nota" value="<%=nota.getConteudo() %>">
+							<button type="submit">edit</button>
+						</form>
+						
 						</td>
 					</tr>
 					
@@ -143,7 +149,6 @@
 		</div>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="js/main.js">
-		</script>
+		<script src="js/main.js"></script>
 	</body>
 </html>
