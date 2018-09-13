@@ -1,7 +1,6 @@
 package br.edu.Insper;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class DeletaNota
+ * Servlet implementation class SelecionaMural
  */
-@WebServlet("/DeletaNota")
-public class DeletaNota extends HttpServlet {
+@WebServlet("/SelecionaMural")
+public class SelecionaMural extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeletaNota() {
+    public SelecionaMural() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,19 +27,7 @@ public class DeletaNota extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/html");
-		DAO dao;
-		
-		dao = new DAO();
-				
-		String idstring = request.getParameter("idnota");
-		Integer id = Integer.parseInt(idstring);
-		
-		dao.removeNota(id);
-		
-		dao.close();
-		
-		response.sendRedirect("http://localhost:8080/TechWeb-proj1/mural.jsp");
+		doPost(request,response);
 	}
 
 	/**
@@ -48,7 +35,25 @@ public class DeletaNota extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		DAO dao;
+		try {
+			
+			dao = new DAO();
+			
+			String idstring = request.getParameter("idmural");
+			Integer id = Integer.parseInt(idstring);
+			
+			
+
+			dao.close();
+			
+			response.sendRedirect("mural.jsp");
+
+			
+		} catch (NumberFormatException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 	}
 
 }

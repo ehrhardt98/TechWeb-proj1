@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class CriaMural
  */
-@WebServlet("/Login")
-public class Login extends HttpServlet {
+@WebServlet("/CriaMural")
+public class CriaMural extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public CriaMural() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,31 +31,18 @@ public class Login extends HttpServlet {
 		try {
 			dao = new DAO();
 
-			Usuario usuario;
-			String site;
-			String user;
-			String senha;
-			
-			site = "http://localhost:8080/TechWeb-proj1/inicio.jsp";
-			user = request.getParameter("username-login");
-			senha = request.getParameter("senha-login");
-			
-			
-			for(Usuario u : dao.getListaUsuarios()) {
-				if(u.getNome().equals(user) && u.getSenha().equals(senha)) {
-					site = "http://localhost:8080/TechWeb-proj1/home.jsp";
-					usuario = u;
-				}
-			}
-			
+			Mural mural = new Mural();
+			mural.setIdUsuario(1);
+
+			dao.adicionaMural(mural);
 			dao.close();
+
+			response.sendRedirect("mural.jsp");
 			
-			response.sendRedirect(site);
 		}
 		catch (Exception e) {
 			// TODO: handle exception
 		}
-			
 	}
 
 	/**

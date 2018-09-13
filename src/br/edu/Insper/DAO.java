@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,12 +104,10 @@ public class DAO {
 	
 	public void adicionaMural(Mural mural) {
 		String sql = "INSERT INTO murais " + 
-				"(data_criacao, ultima_mod, id_usuario) values(?,?,?)";
+				"(id_usuario) values(?)";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setDate(1, new Date(mural.getDataCriacao().getTimeInMillis()));
-			stmt.setDate(2, new Date(mural.getUltimaMod().getTimeInMillis()));
-			stmt.setInt(3, mural.getIdUsuario());
+			stmt.setInt(1, mural.getIdUsuario());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -123,7 +122,7 @@ public class DAO {
 		try {
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, mural.getNome());
-			stmt.setDate(2, new Date(mural.getUltimaMod().getTimeInMillis()));
+			stmt.setTimestamp(2, mural.getUltimaMod());
 			stmt.setString(3, mural.getEstilo());
 			stmt.setInt(4, mural.getId());
 			stmt.execute();
@@ -139,7 +138,7 @@ public class DAO {
 		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);
-			stmt.setDate(1, new Date(mural.getUltimaMod().getTimeInMillis()));
+			stmt.setTimestamp(1, mural.getUltimaMod());
 			stmt.setInt(2, mural.getId());
 			stmt.execute();
 			stmt.close();
@@ -157,6 +156,34 @@ public class DAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<Mural> getListaMurais(int id_usuario) {
+		ArrayList<Mural> murais = new ArrayList<Mural>();
+		
+		PreparedStatement stmt;
+		String sql = "SELECT * FROM murais WHERE " + "id_usuario=?";
+		try {
+			stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, id_usuario);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Mural mural = new Mural();
+				mural.setId(rs.getInt("id_mural"));
+				mural.setNome(rs.getString("nome"));
+				mural.setDataCriacao(rs.getTimestamp("data_criacao"));
+				mural.setUltimaMod(rs.getTimestamp("ultima_mod"));
+				mural.setEstilo(rs.getString("estilo"));
+				mural.setIdUsuario(rs.getInt("id_usuario"));
+				murais.add(mural);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return murais;
 	}
 	
 	public void adicionaNota(Nota nota) {
@@ -182,7 +209,6 @@ public class DAO {
 				"tipo=?, conteudo=? WHERE id_nota=?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			System.out.println("aaaaaaaaaaaaaaaaaaaaaaa");
 			System.out.println(nota.getId());
 			stmt.setString(1, nota.getTipo());
 			stmt.setString(2, nota.getConteudo());

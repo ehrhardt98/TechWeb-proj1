@@ -1,12 +1,12 @@
 package br.edu.Insper;
 
-import java.util.Calendar;
+import java.sql.Timestamp;
 
 public class Mural {
 	private Integer id;
 	private String nome;
-	private Calendar dataCriacao;
-	private Calendar ultimaMod;
+	private Timestamp dataCriacao;
+	private Timestamp ultimaMod;
 	private String estilo;
 	private Integer idUsuario;
 	
@@ -18,11 +18,11 @@ public class Mural {
 		this.nome = nome;
 	}
 	
-	public void setDataCriacao(Calendar dataCriacao) {
+	public void setDataCriacao(Timestamp dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
 	
-	public void setUltimaMod(Calendar ultimaMod) {
+	public void setUltimaMod(Timestamp ultimaMod) {
 		this.ultimaMod = ultimaMod;
 	}
 	
@@ -42,11 +42,11 @@ public class Mural {
 		return nome;
 	}
 	
-	public Calendar getDataCriacao() {
+	public Timestamp getDataCriacao() {
 		return dataCriacao;
 	}
 	
-	public Calendar getUltimaMod() {
+	public Timestamp getUltimaMod() {
 		return ultimaMod;
 	}
 	
