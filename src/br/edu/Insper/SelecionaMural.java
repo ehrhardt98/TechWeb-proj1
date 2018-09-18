@@ -1,6 +1,8 @@
 package br.edu.Insper;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,14 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/SelecionaMural")
 public class SelecionaMural extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SelecionaMural() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+   
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,14 +35,18 @@ public class SelecionaMural extends HttpServlet {
 			
 			dao = new DAO();
 			
-			String idstring = request.getParameter("idmural");
-			Integer id = Integer.parseInt(idstring);
+			String idstring = request.getParameter("id_mural");
+			Integer id_mural = Integer.parseInt(idstring);
+			Integer id_usuario = Integer.parseInt(request.getParameter("id_usuario"));
 			
+			System.out.println(id_mural);
 			
-
 			dao.close();
 			
-			response.sendRedirect("mural.jsp");
+			request.setAttribute("id_mural", id_mural);
+			request.setAttribute("id_usuario", id_usuario);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/mural.jsp");
+			dispatcher.forward(request, response);
 
 			
 		} catch (NumberFormatException e) {

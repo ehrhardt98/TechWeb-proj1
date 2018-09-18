@@ -1,8 +1,8 @@
 package br.edu.Insper;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,13 +29,9 @@ public class AlteraNota extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
 		DAO dao;
+		Integer id_mural = Integer.parseInt(request.getParameter("id_mural"));
+		Integer id_usuario = Integer.parseInt(request.getParameter("id_usuario"));
 		try {
 			
 			dao = new DAO();
@@ -43,22 +39,24 @@ public class AlteraNota extends HttpServlet {
 			Nota nota = new Nota();
 			
 			nota.setId(Integer.valueOf(request.getParameter("id-nota")));
-			System.out.println(nota.getId());
 			nota.setTipo(request.getParameter("tipo-nota"));
 			nota.setConteudo(request.getParameter("edit-nota"));
 			
 			dao.alteraNota(nota);
 			dao.close();
 			
-			response.sendRedirect("mural.jsp");
+			request.setAttribute("id_mural", id_mural);
+			request.setAttribute("id_usuario", id_usuario);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/mural.jsp");
+			dispatcher.forward(request, response);
 
 			
 		} catch (NumberFormatException e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		
 	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

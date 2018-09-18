@@ -21,7 +21,11 @@
 		<%-- <jsp:useBean id="dao" class="br.edu.Insper.DAO"/> --%>
 		<div class="nav-bar">
 			<div class="title">
-				<h2>Nome do mural</h2>
+			<% DAO dao2 = new DAO();
+				Integer id_mural = (Integer)request.getAttribute("id_mural");
+				Integer id_usuario = (Integer)request.getAttribute("id_usuario");
+				%>
+				<h2><%=dao2.getNomeMural(id_mural) %></h2>
 			</div>
 			
 			<div class="menu-button">
@@ -45,13 +49,16 @@
 		</div>
 
 		<div class="menu">
-			<a href="home.jsp" class="menu-item">Meus murais</a>
+			<form action="VoltaHome">
+				<button type="submit" class="menu-item" name="home" value="<%=id_usuario%>">Meus murais</button>
+			</form>
 			<a href="inicio.jsp" class="menu-item">Logout</a>
 		</div>
 	<br/>
 		<div class="canvas">
 			<div class="create-note-div">
 				<form class="create-note-form" action="AdicionaNota">
+					<input type="hidden" name="id_usuario" value="<%=id_usuario%>"/>
 					<input type="text" name="create-note" placeholder="Crie uma nota" style="display: block;
 	   				border-style: solid;
 				    border-width: 2px;
@@ -62,11 +69,11 @@
 				    width: 48%;
 				    margin: 0;
 				    padding: 0px 0px 0px 12px;">
+				    <button type="submit" name="id_mural" value="<%=id_mural%>"style="display: none;"></button>
 				</form>
 			</div>
 			
-			<% DAO dao = new DAO();
-				ArrayList<Nota> notas = dao.getListaNotas(1);
+			<%  ArrayList<Nota> notas = dao2.getListaNotas(id_mural);
 				for (Nota nota : notas ) { %>
 				<table style="display: inline;
 			    margin: 0px 8px;
@@ -95,7 +102,9 @@
 					    height: 20px;
 					    padding: 0px">
 						<form action="DeletaNota">
-							<button type="submit" name="idnota" value="<%=nota.getId() %>" style="display: block;
+							<input type="hidden" name="id_usuario" value="<%=id_usuario%>">
+							<input type="hidden" name="id_mural" value="<%=id_mural%>">
+							<button type="submit" name="id_nota" value="<%=nota.getId() %>" style="display: block;
 						    width: 20px;
 						    height: 20px;
 						    background-position: 0px 0px;
@@ -121,8 +130,9 @@
 						<form action="AlteraNota" id="altera-nota">
 							<input type="hidden" name="id-nota" value="<%=nota.getId() %>">
 							<input type="hidden" name="tipo-nota" value="<%=nota.getTipo() %>">
+							<input type="hidden" name="id_usuario" value="<%=id_usuario%>">
 							<input type="text" name="edit-nota" value="<%=nota.getConteudo() %>">
-							<button type="submit">edit</button>
+							<button type="submit" name="id_mural" value="<%=id_mural%>">edit</button>
 						</form>
 						
 						</td>

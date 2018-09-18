@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class CriaMural
+ * Servlet implementation class VoltaHome
  */
-@WebServlet("/CriaMural")
-public class CriaMural extends HttpServlet {
+@WebServlet("/VoltaHome")
+public class VoltaHome extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CriaMural() {
+    public VoltaHome() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,25 +29,20 @@ public class CriaMural extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		DAO dao;
-		
-		Integer id_usuario;
-		id_usuario = Integer.parseInt(request.getParameter("id_usuario"));
+		response.setContentType("text/html; charset=UTF-8");
+		DAO dao;		
 		try {
 			dao = new DAO();
-
-			Mural mural = new Mural();
-			mural.setIdUsuario(id_usuario);
-			mural.setNome("Novo Mural");
-
-			dao.adicionaMural(mural);
+			
+			System.out.println(request.getParameter("home"));
+			
+			Integer id_usuario = Integer.parseInt(request.getParameter("home"));
+			
 			dao.close();
-
 			request.setAttribute("id_usuario", id_usuario);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/home.jsp");
 			dispatcher.forward(request, response);
-			
 		}
 		catch (Exception e) {
 			// TODO: handle exception

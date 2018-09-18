@@ -2,6 +2,7 @@ package br.edu.Insper;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,17 +31,23 @@ public class DeletaNota extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		DAO dao;
+		Integer id_mural = Integer.parseInt(request.getParameter("id_mural"));
+		Integer id_usuario = Integer.parseInt(request.getParameter("id_usuario"));
 		
 		dao = new DAO();
 				
-		String idstring = request.getParameter("idnota");
+		String idstring = request.getParameter("id_nota");
 		Integer id = Integer.parseInt(idstring);
 		
 		dao.removeNota(id);
 		
 		dao.close();
 		
-		response.sendRedirect("http://localhost:8080/TechWeb-proj1/mural.jsp");
+		request.setAttribute("id_mural", id_mural);
+		request.setAttribute("id_usuario", id_usuario);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/mural.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**

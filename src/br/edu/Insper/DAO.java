@@ -1,14 +1,11 @@
 package br.edu.Insper;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DAO {
 	private Connection connection = null;
@@ -104,10 +101,11 @@ public class DAO {
 	
 	public void adicionaMural(Mural mural) {
 		String sql = "INSERT INTO murais " + 
-				"(id_usuario) values(?)";
+				"(id_usuario, nome) values(?,?)";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, mural.getIdUsuario());
+			stmt.setString(2, mural.getNome());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -158,6 +156,28 @@ public class DAO {
 		}
 	}
 	
+	public String getNomeMural(int id_mural) {
+		String nomeMural = null;
+
+		PreparedStatement stmt;
+		String sql = "SELECT * FROM murais WHERE " + "id_mural=?";
+		try {
+			stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, id_mural);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				nomeMural = rs.getString("nome");
+			}
+			rs.close();
+			stmt.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return nomeMural;
+	}
+	
 	public ArrayList<Mural> getListaMurais(int id_usuario) {
 		ArrayList<Mural> murais = new ArrayList<Mural>();
 		
@@ -186,6 +206,7 @@ public class DAO {
 		return murais;
 	}
 	
+
 	public void adicionaNota(Nota nota) {
 		String sql = "INSERT INTO notas " + 
 				"(tipo, conteudo, id_mural) VALUES (?,?,?)";
@@ -247,6 +268,8 @@ public class DAO {
 		}
 		return notas;
 	}
+	
+	
 	
 	public void removeNota(Integer idNota) {
 		try {

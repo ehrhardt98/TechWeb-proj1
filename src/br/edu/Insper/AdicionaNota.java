@@ -1,8 +1,8 @@
 package br.edu.Insper;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,31 +30,32 @@ public class AdicionaNota extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DAO dao;
+		Integer id_mural = Integer.parseInt(request.getParameter("id_mural"));
+		Integer id_usuario = Integer.parseInt(request.getParameter("id_usuario"));
 		try {
 			dao = new DAO();
 
 			Nota nota = new Nota();
 			nota.setTipo("texto");
 			nota.setConteudo(request.getParameter("create-note"));
-			nota.setIdMural(1);
+			
+			nota.setIdMural(id_mural);
 
 			dao.adicionaNota(nota);
 			dao.close();
 
-			response.sendRedirect("mural.jsp");
+			request.setAttribute("id_mural", id_mural);
+			request.setAttribute("id_usuario", id_usuario);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/mural.jsp");
+			dispatcher.forward(request, response);
 			
 		}
 		catch (Exception e) {
 			// TODO: handle exception
 		}
-		
 	}
+
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

@@ -31,11 +31,14 @@
 		</div>
 
 		<div class="canvas">
+			<div>${usuario.getId()}</div>
 			<% DAO dao = new DAO();
-				ArrayList<Mural> murais = dao.getListaMurais(1);
+				Integer id_usuario = (Integer)request.getAttribute("id_usuario");
+				ArrayList<Mural> murais = dao.getListaMurais(id_usuario);
 				for (Mural mural : murais) { %>
 				<form action="SelecionaMural" style="width: auto; height:auto; margin-right: 0">
-					<button type="submit" name="idmural" value="<%=mural.getId() %>" style="display: inline;
+					<input type="hidden" name="id_usuario" value="<%=id_usuario%>"/>
+					<button type="submit" name="id_mural" value="<%=mural.getId()%>" style="display: inline;
 				    margin: 30px 10px 0px 10px;
 				    height: 12%;
 				    width: 25%;
@@ -52,7 +55,7 @@
 
 
 			<form action="CriaMural" style="width: auto; height:auto; margin-right:0 ">
-				<button type="submit" name="novomural" style="display: inline; margin: 30px 10px 0px 10px; height: 12%; width: 25%; min-width: 180px; padding-bottom: 0.83em; background-color: #707070;">
+				<button type="submit" name="id_usuario" value="<%=id_usuario%>"style="display: inline; margin: 30px 10px 0px 10px; height: 12%; width: 25%; min-width: 180px; padding-bottom: 0.83em; background-color: #707070;">
 					<h2>Criar novo mural</h2>
 				</button>
 			</form>

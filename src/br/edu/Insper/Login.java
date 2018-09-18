@@ -1,6 +1,8 @@
 package br.edu.Insper;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,34 +29,7 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		DAO dao;
-		try {
-			dao = new DAO();
-
-			Usuario usuario;
-			String site;
-			String user;
-			String senha;
-			
-			site = "http://localhost:8080/TechWeb-proj1/inicio.jsp";
-			user = request.getParameter("username-login");
-			senha = request.getParameter("senha-login");
-			
-			
-			for(Usuario u : dao.getListaUsuarios()) {
-				if(u.getNome().equals(user) && u.getSenha().equals(senha)) {
-					site = "http://localhost:8080/TechWeb-proj1/home.jsp";
-					usuario = u;
-				}
-			}
-			
-			dao.close();
-			
-			response.sendRedirect(site);
-		}
-		catch (Exception e) {
-			// TODO: handle exception
-		}
+		doPost(request, response);
 			
 	}
 
@@ -63,7 +38,40 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		response.setContentType("text/html; charset=UTF-8");
+		DAO dao;
+		try {
+			dao = new DAO();
+
+			Usuario usuario = new Usuario();
+			String site;
+			String user;
+			String senha;
+			
+			site = "/inicio.jsp";
+			user = request.getParameter("username-login");
+			senha = request.getParameter("senha-login");
+			
+			
+			for(Usuario u : dao.getListaUsuarios()) {
+				if(u.getNome().equals(user) && u.getSenha().equals(senha)) {
+					site = "/home.jsp";
+					usuario.setId(u.getId());
+					usuario.setEmail(u.getEmail());
+					usuario.setNome(u.getNome());
+					usuario.setSenha(u.getSenha());
+				}
+			}
+			
+			dao.close();
+			request.setAttribute("id_usuario", (usuario.getId()));
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher(site);
+			dispatcher.forward(request, response);
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 }
