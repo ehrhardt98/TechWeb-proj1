@@ -333,19 +333,19 @@ public class DAO {
 		}
 	}
 	
-	public void filtroMural(Integer idMural) {
-		String sql = "SELECT * FROM murais " 
-				+ "WHERE nome = '%?%'";
-		PreparedStatement stmt;
-		try {
-			stmt = connection.prepareStatement(sql);
-			stmt.setString(1, "obaaaaaaaaa");
-			
-		} catch (SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		
-	}
+//	public void filtroMural(Integer idMural) {
+//		String sql = "SELECT * FROM murais " 
+//				+ "WHERE nome = '%?%'";
+//		PreparedStatement stmt;
+//		try {
+//			stmt = connection.prepareStatement(sql);
+//			stmt.setString(1, "obaaaaaaaaa");
+//			
+//		} catch (SQLException e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
+//		
+//	}
 	
 }
