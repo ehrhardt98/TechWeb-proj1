@@ -5,6 +5,9 @@
 <html>
 	<head>
 	<%@ page import="java.util.*,br.edu.Insper.*" %>
+	<%@ page import="java.awt.image.BufferedImage.*,br.edu.Insper.*" %>
+	<%@ page import="java.io.ByteArrayInputStream.*,br.edu.Insper.*" %>
+	<%@ page import="javax.imageio.ImageIO.*,br.edu.Insper.*" %>
 	    <meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,6 +16,14 @@
 
 	    <style type="text/css">
 			@import url("css/styles.css");
+			.inputfile {
+				width: 0.1px;
+				height: 0.1px;
+				opacity: 0;
+				overflow: hidden;
+				position: absolute;
+				z-index: -1;
+			}
 		</style>
 	</head>
 
@@ -57,9 +68,9 @@
 	<br/>
 		<div class="canvas">
 			<div class="create-note-div">
-				<form class="create-note-form" action="AdicionaNota">
+				<form class="create-note-form" action="CriaNota">
 					<input type="hidden" name="id_usuario" value="<%=id_usuario%>"/>
-					<input type="text" name="create-note" placeholder="Crie uma nota" style="display: block;
+					<input type="text" name="create_note" placeholder="Crie uma nota" style="display: block;
 	   				border-style: solid;
 				    border-width: 2px;
 				    border-color: #a0a0a0;
@@ -128,13 +139,50 @@
 				    word-break: break-word;">
 						<td class="bot-nota-cell">
 						<form action="AlteraNota" id="altera-nota">
-							<input type="hidden" name="id-nota" value="<%=nota.getId() %>">
-							<input type="hidden" name="tipo-nota" value="<%=nota.getTipo() %>">
+							<input type="hidden" name="id_nota" value="<%=nota.getId() %>">
+							<input type="hidden" name="tipo_nota" value="<%=nota.getTipo() %>">
 							<input type="hidden" name="id_usuario" value="<%=id_usuario%>">
-							<input type="text" name="edit-nota" value="<%=nota.getConteudo() %>">
-							<button type="submit" name="id_mural" value="<%=id_mural%>">edit</button>
+							<input type="text" name="edit_nota" value="<%=nota.getConteudo() %>"
+							 style="outline: none;
+							 background: transparent;
+							 border-top: transparent;
+							 border-right: transparent;
+							 border-left: transparent;
+							 border-bottom: transparent">
+							<button type="submit" name="id_mural" value="<%=id_mural%>">
+							    <img src="img/edit.png" title="Adicionar Imagem" style="display: block;
+						    	height: 13px;						    	
+							    margin-left: auto;
+							    margin-right: auto;"></img>
+							</button>
 						</form>
 						
+						<form action="CriaBlob" method="post" enctype="multipart/form-data">
+							<input type="hidden" name="id_nota" value="<%=nota.getId() %>">
+							<input type="hidden" name="id_mural" value="<%=id_mural%>">
+							<input type="hidden" name="id_usuario" value="<%=id_usuario%>">
+							<label for="lable" style="display: block;
+							    width: 20px;
+							    height: 20px;
+							    background-position: 0px 0px;
+							    border: 0px;
+							    padding: 1px;
+							    cursor: pointer;
+							    background-color: #ffff99;">
+							    <img src="img/add.png" title="Adicionar Imagem" style="display: block;
+						    	height: 22px;						    	
+							    margin-left: auto;
+							    margin-right: auto;"></img>
+							</label>
+							<input type="file" onchange="this.form.submit()" id="lable" name="blob" required="required" class="inputfile">
+						</form>
+						
+						<form action="ViewBlob" method="post">
+							<input type="hidden" name="id_nota" value="<%=nota.getId() %>">
+							<input type="hidden" name="id_mural" value="<%=id_mural %>">
+							<input type="hidden" name="id_usuario" value="<%=id_usuario %>">
+							<button type="submit">Mostrar Imagem </button>
+						</form>
 						</td>
 					</tr>
 					

@@ -1,11 +1,13 @@
 package br.edu.Insper;
 
+import java.io.InputStream;
 
 public class Nota {
 	private Integer id;
 	private String tipo;
 	private String conteudo;
 	private Integer idMural;
+	private InputStream blob;
 	
 	public void setId(Integer id) {
 		this.id = id;
@@ -23,6 +25,10 @@ public class Nota {
 		this.idMural = idMural;
 	}
 	
+	public void setBlob(InputStream blob) {
+		this.blob = blob;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -37,5 +43,9 @@ public class Nota {
 	
 	public Integer getIdMural() {
 		return idMural;
+	}
+	
+	public InputStream getBlob() {
+		return blob;
 	}
 }

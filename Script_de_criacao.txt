@@ -1,20 +1,70 @@
-----------------------------------
-	Script de criação
-----------------------------------
+-- MySQL Workbench Forward Engineering
 
-- CREATE DATABASE nome_database ; -> Cria uma nova base de dados
-- USE nome_database ; -> Seleciona a base de dados que será utilizada para as modificações seguintes
-- CREATE TABLE nome_tabela () -> Cria uma nova coluna na database selecionada
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
----------------------
-Descrições de colunas
----------------------
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema projeto1
+-- -----------------------------------------------------
 
-- INT -> Define que a coluna aceita inputs do tipo inteiro (com até 11 caracteres)
-- VARCHAR(32) -> Define que a coluna aceita inputs do tipo string (com até 32 caracteres)
-- CHAR(7) -> Define que a coluna aceita inputs de uma string imutável (com até 7 caracteres)
-- TIMESTAMP -> Define que a coluna aceita inputs de data seguindo o padrão yyyy-mm-dd
-- NOT NULL -> Define que a coluna exige algum dado, ou seja, não pode receber um input vazio
-- AUTO_INCREMENT -> Define que o próximo input dessa coluna irá ser incrementado automaticamente
-- REFERENCES nome_tabela(nome_coluna) -> Referencia que essa coluna receberá aquilo que está em outra tabela
-- PRIMARY KEY (nome_coluna) -> Define a coluna com um id único e não nulo
+-- -----------------------------------------------------
+-- Schema projeto1
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `projeto1` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `projeto1` ;
+
+-- -----------------------------------------------------
+-- Table `projeto1`.`murais`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `projeto1`.`murais` (
+  `id_mural` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(32) NULL DEFAULT NULL,
+  `estilo` CHAR(7) NULL DEFAULT NULL,
+  `id_usuario` INT(11) NOT NULL,
+  `data_criacao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ultima_mod` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_mural`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 40
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `projeto1`.`notas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `projeto1`.`notas` (
+  `id_nota` INT(11) NOT NULL AUTO_INCREMENT,
+  `tipo` VARCHAR(32) NOT NULL,
+  `conteudo` VARCHAR(32) NULL DEFAULT NULL,
+  `id_mural` INT(11) NOT NULL,
+  `bloob` LONGBLOB NULL DEFAULT NULL,
+  PRIMARY KEY (`id_nota`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 96
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `projeto1`.`usuarios`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `projeto1`.`usuarios` (
+  `id_usuario` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(32) NOT NULL,
+  `email` VARCHAR(32) NOT NULL,
+  `senha` VARCHAR(32) NOT NULL,
+  PRIMARY KEY (`id_usuario`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 5
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

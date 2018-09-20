@@ -38,9 +38,9 @@ public class AlteraNota extends HttpServlet {
 			
 			Nota nota = new Nota();
 			
-			nota.setId(Integer.valueOf(request.getParameter("id-nota")));
-			nota.setTipo(request.getParameter("tipo-nota"));
-			nota.setConteudo(request.getParameter("edit-nota"));
+			nota.setId(Integer.valueOf(request.getParameter("id_nota")));
+			nota.setTipo(request.getParameter("tipo_nota"));
+			nota.setConteudo(request.getParameter("edit_nota"));
 			
 			dao.alteraNota(nota);
 			dao.close();

@@ -1,6 +1,7 @@
 package br.edu.Insper;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,15 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class AdicionaNota
  */
-@WebServlet("/AdicionaNota")
+@WebServlet("/CriaNota")
 
-public class AdicionaNota extends HttpServlet {
+public class CriaNota extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AdicionaNota() {
+	public CriaNota() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -33,16 +34,19 @@ public class AdicionaNota extends HttpServlet {
 		DAO dao;
 		Integer id_mural = Integer.parseInt(request.getParameter("id_mural"));
 		Integer id_usuario = Integer.parseInt(request.getParameter("id_usuario"));
+		
+		PrintWriter out = response.getWriter();
 		try {
 			dao = new DAO();
 
 			Nota nota = new Nota();
 			nota.setTipo("texto");
-			nota.setConteudo(request.getParameter("create-note"));
+			nota.setConteudo(request.getParameter("create_note"));
 			
 			nota.setIdMural(id_mural);
 
 			dao.adicionaNota(nota);
+
 			dao.close();
 
 			request.setAttribute("id_mural", id_mural);

@@ -1,5 +1,11 @@
 package br.edu.Insper;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,7 +20,7 @@ public class DAO {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection(
-					"jdbc:mysql://localhost/projeto1", "root", "02039855oioioi9");
+					"jdbc:mysql://localhost/projeto1", "root", "senhamysql");
 			
 		} catch (ClassNotFoundException | SQLException e) {
 			
@@ -34,8 +40,9 @@ public class DAO {
 	public void adicionaUsuario(Usuario usuario) {
 		String sql = "INSERT INTO usuarios " + 
 				"(nome,email,senha) values(?,?,?)";
+		PreparedStatement stmt;
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, usuario.getNome());
 			stmt.setString(2, usuario.getEmail());
 			stmt.setString(3, usuario.getSenha());
@@ -64,8 +71,10 @@ public class DAO {
 	}
 	
 	public void removeUsuario(Integer idUsuario) {
+		String sql = "DELETE FROM usuarios WHERE id_usuario=?";
+		PreparedStatement stmt;
 		try {
-			PreparedStatement stmt = connection.prepareStatement("DELETE FROM usuarios WHERE id_usuario=?");
+			stmt = connection.prepareStatement(sql);
 			stmt.setLong(1, idUsuario);
 			stmt.execute();
 			stmt.close();
@@ -76,9 +85,8 @@ public class DAO {
 	
 	public ArrayList<Usuario> getListaUsuarios() {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-
-		PreparedStatement stmt;
 		String sql = "SELECT * FROM usuarios";
+		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
@@ -102,8 +110,9 @@ public class DAO {
 	public void adicionaMural(Mural mural) {
 		String sql = "INSERT INTO murais " + 
 				"(id_usuario, nome) values(?,?)";
+		PreparedStatement stmt;
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, mural.getIdUsuario());
 			stmt.setString(2, mural.getNome());
 			stmt.execute();
@@ -112,32 +121,16 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void alteraMural(Mural mural) {
 		String sql = "UPDATE murais SET " + 
-				"nome=?, ultima_mod=?, estilo=? WHERE id_mural=?";
+				"nome=?, estilo=? WHERE id_mural=?";
 		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, mural.getNome());
-			stmt.setTimestamp(2, mural.getUltimaMod());
-			stmt.setString(3, mural.getEstilo());
-			stmt.setInt(4, mural.getId());
-			stmt.execute();
-			stmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void alteraDataMural(Mural mural) {
-		String sql = "UPDATE murais SET " + 
-				"ultima_mod=? WHERE id_mural=?";
-		PreparedStatement stmt;
-		try {
-			stmt = connection.prepareStatement(sql);
-			stmt.setTimestamp(1, mural.getUltimaMod());
-			stmt.setInt(2, mural.getId());
+			stmt.setString(2, mural.getEstilo());
+			stmt.setInt(3, mural.getId());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -146,24 +139,32 @@ public class DAO {
 	}
 	
 	public void removeMural(Integer idMural) {
+		String sql1 = "DELETE FROM notas WHERE id_mural = ?";
+		String sql2 = "DELETE FROM murais WHERE id_mural=?";
+		PreparedStatement stmt1;
+		PreparedStatement stmt2;
 		try {
-			PreparedStatement stmt = connection.prepareStatement("DELETE FROM murais WHERE id_mural=?");
-			stmt.setLong(1, idMural);
-			stmt.execute();
-			stmt.close();
+			stmt1 = connection.prepareStatement(sql1);
+			stmt1.setLong(1, idMural);
+			stmt1.execute();
+			stmt1.close();
+			
+			stmt2 = connection.prepareStatement(sql2);
+			stmt2.setLong(1, idMural);
+			stmt2.execute();
+			stmt2.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public String getNomeMural(int id_mural) {
+	public String getNomeMural(int idMural) {
 		String nomeMural = null;
-
-		PreparedStatement stmt;
 		String sql = "SELECT * FROM murais WHERE " + "id_mural=?";
+		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);
-			stmt.setInt(1, id_mural);
+			stmt.setInt(1, idMural);
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -178,14 +179,13 @@ public class DAO {
 		return nomeMural;
 	}
 	
-	public ArrayList<Mural> getListaMurais(int id_usuario) {
+	public ArrayList<Mural> getListaMurais(int idUsuario) {
 		ArrayList<Mural> murais = new ArrayList<Mural>();
-		
-		PreparedStatement stmt;
 		String sql = "SELECT * FROM murais WHERE " + "id_usuario=?";
+		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);
-			stmt.setInt(1, id_usuario);
+			stmt.setInt(1, idUsuario);
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -210,9 +210,14 @@ public class DAO {
 	public void adicionaNota(Nota nota) {
 		String sql = "INSERT INTO notas " + 
 				"(tipo, conteudo, id_mural) VALUES (?,?,?)";
-
+		PreparedStatement stmt;
+		
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
+			
+			//File file = new File(fileName);
+			//FileInputStream input = new FileInputStream(file);
+			
+			stmt = connection.prepareStatement(sql);
 
 			stmt.setString(1, nota.getTipo());
 			stmt.setString(2, nota.getConteudo());
@@ -220,20 +225,22 @@ public class DAO {
 			
 			stmt.execute();
 			stmt.close();
-		} catch (SQLException e) {
+		} catch (SQLException  e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void alteraNota(Nota nota) {
-		String sql = "UPDATE notas SET " + 
-				"tipo=?, conteudo=? WHERE id_nota=?";
+	public void adicionaBlob(Nota nota) {
+		String sql = "UPDATE notas SET bloob=?" + 
+					"WHERE id_nota=?";
+		PreparedStatement stmt;
+		
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql);
-			System.out.println(nota.getId());
-			stmt.setString(1, nota.getTipo());
-			stmt.setString(2, nota.getConteudo());
-			stmt.setInt(3, nota.getId());
+			
+			stmt = connection.prepareStatement(sql);
+			
+			stmt.setBlob(1, nota.getBlob());
+			stmt.setInt(2, nota.getId());
 			
 			stmt.execute();
 			stmt.close();
@@ -243,14 +250,58 @@ public class DAO {
 		}
 	}
 	
-	public ArrayList<Nota> getListaNotas(int id_mural) {
-		ArrayList<Nota> notas = new ArrayList<Nota>();
-
+	public byte[] viewBlob(Nota nota) {
+		String sql = "SELECT bloob FROM notas WHERE id_nota=?";
 		PreparedStatement stmt;
-		String sql = "SELECT * FROM notas WHERE " + "id_mural=?";
+		
 		try {
 			stmt = connection.prepareStatement(sql);
-			stmt.setInt(1, id_mural);
+			
+			stmt.setInt(1, nota.getId());
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				Blob blob = rs.getBlob("bloob");
+				byte byteArray[] = blob.getBytes(1, (int) blob.length());
+				return byteArray;
+			}
+			else {
+				System.out.println("Deu ruim");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	public void alteraNota(Nota nota) {
+		String sql = "UPDATE notas SET " + 
+				"tipo=?, conteudo=? WHERE id_nota=?";
+		PreparedStatement stmt;
+		try {
+			stmt = connection.prepareStatement(sql);
+			stmt.setString(1, nota.getTipo());
+			stmt.setString(2, nota.getConteudo());
+			stmt.setLong(3, nota.getId());
+			
+			stmt.execute();
+			stmt.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<Nota> getListaNotas(int idMural) {
+		ArrayList<Nota> notas = new ArrayList<Nota>();
+		String sql = "SELECT * FROM notas WHERE " + "id_mural=?";
+		PreparedStatement stmt;
+		try {
+			stmt = connection.prepareStatement(sql);
+			stmt.setLong(1, idMural);
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
@@ -269,11 +320,11 @@ public class DAO {
 		return notas;
 	}
 	
-	
-	
 	public void removeNota(Integer idNota) {
+		String sql = "DELETE FROM notas WHERE id_nota=?";
+		PreparedStatement stmt;
 		try {
-			PreparedStatement stmt = connection.prepareStatement("DELETE FROM notas WHERE id_nota=?");
+			stmt = connection.prepareStatement(sql);
 			stmt.setLong(1, idNota);
 			stmt.execute();
 			stmt.close();
@@ -281,5 +332,20 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
-
+	
+	public void filtroMural(Integer idMural) {
+		String sql = "SELECT * FROM murais " 
+				+ "WHERE nome = '%?%'";
+		PreparedStatement stmt;
+		try {
+			stmt = connection.prepareStatement(sql);
+			stmt.setString(1, "obaaaaaaaaa");
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+	}
+	
 }

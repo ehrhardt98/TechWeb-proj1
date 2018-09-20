@@ -31,8 +31,8 @@ public class DeletaNota extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		DAO dao;
-		Integer id_mural = Integer.parseInt(request.getParameter("id_mural"));
-		Integer id_usuario = Integer.parseInt(request.getParameter("id_usuario"));
+		Integer idMural = Integer.parseInt(request.getParameter("id_mural"));
+		Integer idUsuario = Integer.parseInt(request.getParameter("id_usuario"));
 		
 		dao = new DAO();
 				
@@ -43,8 +43,8 @@ public class DeletaNota extends HttpServlet {
 		
 		dao.close();
 		
-		request.setAttribute("id_mural", id_mural);
-		request.setAttribute("id_usuario", id_usuario);
+		request.setAttribute("id_mural", idMural);
+		request.setAttribute("id_usuario", idUsuario);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/mural.jsp");
 		dispatcher.forward(request, response);

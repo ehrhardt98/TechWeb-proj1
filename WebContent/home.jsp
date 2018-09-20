@@ -50,6 +50,28 @@
 				    	Ultima modificação: <%=mural.getUltimaMod() %>
 			    	</button>
 				</form>
+				<form action="AlteraMural" id="altera-mural" style="
+							    position: relative;
+							    left: 11px;">
+					<input type="hidden" name="id_mural" value="<%=mural.getId() %>">
+					<input type="hidden" name="id_usuario" value="<%=id_usuario%>">
+					<input type="hidden" name="ultima-mod-mural" value="<%=mural.getUltimaMod() %>">
+					<input type="text" name="nome_mural" value="<%=mural.getNome() %>">
+					<button type="submit">edit</button>
+				</form>
+				
+				
+				<form action="DeletaMural" style="
+							    position: relative;
+							    left: 11px;">
+					<input type="hidden" name="id_usuario" value="<%=id_usuario%>">
+			    	<button type="submit" name="id_mural" value="<%=mural.getId() %>">
+						    	<img src="img/oba.png" title="Apagar nota" style="display: block;
+						    	height: 18px;						    	
+							    margin-left: auto;
+							    margin-right: auto;">
+					</button>
+				</form>
 				
 			<% } %>
 
