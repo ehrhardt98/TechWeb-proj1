@@ -181,6 +181,7 @@
 							<input type="hidden" name="id_nota" value="<%=nota.getId() %>">
 							<input type="hidden" name="id_mural" value="<%=id_mural %>">
 							<input type="hidden" name="id_usuario" value="<%=id_usuario %>">
+							<%System.out.println(nota.getBlob()); %>
 							<button type="submit">Mostrar Imagem </button>
 						</form>
 						</td>
